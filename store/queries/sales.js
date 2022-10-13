@@ -21,9 +21,23 @@ export const bulletinQueries = api.injectEndpoints({
       },
       invalidatesTags: ["sales"],
     }),
+    deleteSale: builder.mutation({
+      query: (saleId) => ({
+        url: `/sales/${saleId}`,
+        method: "delete",
+      }),
+      transformResponse: (response) => {
+        return response.data; // TODO create a generic transform
+      },
+      invalidatesTags: ["sales"],
+    }),
   }),
 });
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useGetSalesQuery, useRegisterSaleMutation } = bulletinQueries;
+export const {
+  useGetSalesQuery,
+  useRegisterSaleMutation,
+  useDeleteSaleMutation,
+} = bulletinQueries;

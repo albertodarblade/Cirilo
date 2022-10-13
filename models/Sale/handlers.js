@@ -31,7 +31,13 @@ async function postSale(payload) {
   return response;
 }
 
+async function deleteSale(saleId) {
+  const response = await Model.findOneAndDelete({ _id: saleId });
+  return response;
+}
+
 module.exports = {
   getSales,
   postSale,
+  deleteSale,
 };

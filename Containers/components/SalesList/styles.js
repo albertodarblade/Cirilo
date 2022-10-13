@@ -50,3 +50,13 @@ export const DateHeader = styled("div")(({ theme }) => ({
   alignItems: "center",
   fontWeight: "500",
 }));
+
+export const Action = styled("div")({
+  display: "flex",
+  justifyContent: "center",
+  margin: "16px 0 24px 0",
+});
+
+export const Actions = styled("div")({
+  margin: "12px",
+});

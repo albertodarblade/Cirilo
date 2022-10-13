@@ -26,6 +26,14 @@ export default async function handler(req, res) {
         res.status(500).json({ success: false, error });
       }
       break;
+    case "DELETE":
+      try {
+        const sale = await SaleHandler.deleteSale();
+        res.status(200).json({ success: true, data: sale });
+      } catch (error) {
+        res.status(500).json({ success: false, error });
+      }
+      break;
     default:
       res.status(400).json({ success: false });
       break;

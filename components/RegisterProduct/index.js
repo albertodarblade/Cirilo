@@ -20,7 +20,7 @@ import { useRegisterSaleMutation } from "store/queries/sales";
 
 const steps = ["Seleciona el producto", "Define el precio"];
 
-export default function RegisterProduct() {
+export default function RegisterProduct({ date }) {
   const session = useSession();
   const dispatch = useDispatch();
   const state = useSelector(globalSelector);
@@ -74,7 +74,7 @@ export default function RegisterProduct() {
       return;
     }
     const payload = {
-      date: new Date().toISOString(),
+      date: date,
       productId: selectedProduct._id,
       name: selectedProduct.name,
       price: price,
