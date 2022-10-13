@@ -16,9 +16,10 @@ export const ICONS = {
   [VARIANTS.NOTIFICATION]: NotificationSvg,
   [VARIANTS.PROJECT]: ProjectSvg,
 };
-
-export default {
+const defaultValues = {
   SIZE,
   VARIANTS,
   ICONS,
 };
+
+export default defaultValues;
