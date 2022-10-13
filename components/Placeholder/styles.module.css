@@ -1,0 +1,36 @@
+.placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.placeholder .svg {
+  max-width: 280px;
+  max-height: 280px;
+}
+
+.placeholder.small .svg {
+  max-width: 120px;
+  max-height: 120px;
+}
+
+.placeholder.medium .svg {
+  max-width: 280px;
+  max-height: 280px;
+}
+
+.placeholder.large .svg {
+  max-width: 768px;
+  max-height: 768px;
+}
+
+.placeholder .title {
+  font-weight: 500;
+  line-height: 48px;
+}
+
+.placeholder .description {
+  opacity: 0.8;
+  margin-top: 16px;
+}
