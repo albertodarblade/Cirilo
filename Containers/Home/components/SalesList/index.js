@@ -80,7 +80,6 @@ export default function SalesList() {
   return (
     <SwipeableViews hysteresis={0.3} onChangeIndex={handleChange} index={index}>
       <div></div>
-
       <ListContent>
         <DateHeader>
           <IconButton onClick={() => handleDateChange(-1)}>

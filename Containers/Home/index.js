@@ -5,12 +5,16 @@ import { useSession, signOut } from "next-auth/react";
 import LogoutIcon from "@mui/icons-material/Logout";
 import Avatar from "@mui/material/Avatar";
 
-import { Toolbar, User, UserActions } from "./styles";
-import ProductsList from "Containers/components/SalesList";
+import { Toolbar, User, UserActions, Action } from "./styles";
+import ProductsList from "Containers/Home/components/SalesList";
+import EventNoteIcon from "@mui/icons-material/EventNote";
+import { Button } from "@mui/material";
+import { useState } from "react";
+import StatsModal from "./components/StatsModal";
 
 export default function Home() {
   const session = useSession();
-
+  const [showModal, setShowModal] = useState(false);
   return (
     <div>
       <Toolbar>
@@ -32,6 +36,19 @@ export default function Home() {
         </User>
       </Toolbar>
 
+      <Action>
+        <Button
+          color="secondary"
+          variant="outlined"
+          onClick={() => setShowModal(!showModal)}
+          startIcon={<EventNoteIcon />}
+        >
+          Ver Estadísticas
+        </Button>
+      </Action>
+      {showModal && (
+        <StatsModal open={showModal} onClose={() => setShowModal(false)} />
+      )}
       <ProductsList />
     </div>
   );

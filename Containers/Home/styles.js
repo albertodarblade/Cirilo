@@ -31,3 +31,9 @@ export const UserActions = styled("div")({
     marginLeft: "8px !important",
   },
 });
+
+export const Action = styled("div")({
+  display: "flex",
+  justifyContent: "center",
+  margin: "0px 0 32px 0",
+});
