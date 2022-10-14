@@ -9,10 +9,13 @@ export default function PrivatePage({ children }) {
   } else {
     return (
       <div>
-        <p>Please log in out with your google account</p>
+        <p>
+          Para poder usar Cirilo, necesitas primero identificarte con tu cuenta
+          Google
+        </p>
         <br />
         <Button variant="contained" onClick={() => signIn()}>
-          Sign in
+          Inicia Sesión con Google
         </Button>
       </div>
     );
