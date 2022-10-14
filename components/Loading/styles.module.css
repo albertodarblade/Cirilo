@@ -4,6 +4,12 @@
   width: 100%;
 }
 
+.normal {
+  width: 100%;
+  padding: 64px;
+  position: relative
+}
+
 .sk-folding-cube {
   margin: auto auto;
   width: 40px;

@@ -5,6 +5,9 @@ export const Calendar = styled("div")(({ theme }) => ({
     display: " none",
   },
   marginBottom: "32px",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
 }));
 
 export const DateDetail = styled("div")(({ theme }) => ({

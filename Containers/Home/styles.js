@@ -1,7 +1,6 @@
 import { styled } from "@mui/material";
 
 export const Toolbar = styled("div")(({ theme, ...props }) => {
-  console.log(props, theme);
   return {
     backgroundColor: theme.palette.background.default,
     top: 0,

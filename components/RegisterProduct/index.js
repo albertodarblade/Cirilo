@@ -17,6 +17,7 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import { globalSelector, onViewChange } from "store/slices/global";
 import { useRegisterSaleMutation } from "store/queries/sales";
+import { CircularProgress } from "@mui/material";
 
 const steps = ["Seleciona el producto", "Define el precio"];
 
@@ -25,13 +26,11 @@ export default function RegisterProduct({ date }) {
   const dispatch = useDispatch();
   const state = useSelector(globalSelector);
   const { data: registeredProducts = [] } = useGetProductsQuery();
-  const [registerProduct] = useRegisterProductMutation();
-  const [registerSale] = useRegisterSaleMutation();
+  const [registerProduct, registerProductInfo] = useRegisterProductMutation();
+  const [registerSale, registerSaleInfo] = useRegisterSaleMutation();
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [productName, setProductName] = useState("");
-
   const [price, setPrice] = useState("");
-
   function handleChange(event, value) {
     setSelectedProduct(value);
   }
@@ -83,6 +82,8 @@ export default function RegisterProduct({ date }) {
     await registerSale(payload);
     toggleRegisterForm();
   }
+
+  const isFetchingRegisterProduct = registerProductInfo.isLoading;
   return (
     <>
       <Stepper activeStep={stepValue} alternativeLabel>
@@ -104,7 +105,14 @@ export default function RegisterProduct({ date }) {
               sx={{
                 width: "100%",
               }}
-              startIcon={<AppRegistrationIcon />}
+              startIcon={
+                isFetchingRegisterProduct ? (
+                  <CircularProgress size={12} />
+                ) : (
+                  <AppRegistrationIcon />
+                )
+              }
+              disabled={isFetchingRegisterProduct}
             >
               Registrar {productName}
             </Button>
@@ -120,6 +128,7 @@ export default function RegisterProduct({ date }) {
               autoComplete="off"
               ref={inputRef}
               color="secondary"
+              disabled={isFetchingRegisterProduct}
             />
           )}
         />
@@ -146,7 +155,10 @@ export default function RegisterProduct({ date }) {
             variant="contained"
             color="primary"
             onClick={handleRegisterSale}
-            disabled={!price || !selectedProduct}
+            startIcon={
+              registerSaleInfo.isLoading && <CircularProgress size={12} />
+            }
+            disabled={!price || !selectedProduct || registerSaleInfo.isLoading}
           >
             Registrar Venta
           </Button>

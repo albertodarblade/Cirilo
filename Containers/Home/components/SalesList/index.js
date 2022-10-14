@@ -24,6 +24,7 @@ import Placeholder from "components/Placeholder";
 import RegisterProduct from "components/RegisterProduct";
 import CreateIcon from "@mui/icons-material/Create";
 import Button from "@mui/material/Button";
+import View from "components/View";
 dayjs.extend(isTomorrow);
 
 export default function SalesList() {
@@ -38,10 +39,16 @@ export default function SalesList() {
   const [deleteSale] = useDeleteSaleMutation();
 
   const [date, setDate] = useState(new Date().toISOString());
-  const { data: sales = [] } = useGetSalesQuery({
+  const {
+    data: sales = [],
+    isLoading,
+    isFetching,
+    ...props
+  } = useGetSalesQuery({
     startDate: date,
     endDate: date,
   });
+
   const total = sales.reduce((acc, item) => {
     acc = item.price + acc;
     return acc;
@@ -77,6 +84,8 @@ export default function SalesList() {
   function handleDelete(saleId) {
     return deleteSale(saleId);
   }
+
+  const isLoadingSales = isLoading || isFetching;
   return (
     <SwipeableViews hysteresis={0.3} onChangeIndex={handleChange} index={index}>
       <div></div>
@@ -104,33 +113,34 @@ export default function SalesList() {
         )}
 
         {state.view.showSellRegister && <RegisterProduct date={date} />}
-        {sales.map((sale) => (
-          <Sale key={sale._id} onClick={() => setSelectedItem(sale._id)}>
-            <Avatar src={sale.owner.image} />
-            <Name>{sale.name}</Name>
-            <Price>{sale.price} Bs.</Price>
-            {sale._id === selectedItem && (
-              <Actions>
-                <IconButton
-                  color="error"
-                  onClick={() => handleDelete(sale._id)}
-                >
-                  <DeleteForeverIcon />
-                </IconButton>
-              </Actions>
-            )}
-          </Sale>
-        ))}
-        {Boolean(sales.length) && (
-          <Total>
-            <span>Total:</span>
-            <Price>{total} Bs.</Price>
-          </Total>
-        )}
-
-        {Boolean(!sales.length) && (
-          <Placeholder variant="project" title="No hay ventas registradas" />
-        )}
+        <View isLoading={isLoadingSales}>
+          {sales.map((sale) => (
+            <Sale key={sale._id} onClick={() => setSelectedItem(sale._id)}>
+              <Avatar src={sale.owner.image} />
+              <Name>{sale.name}</Name>
+              <Price>{sale.price} Bs.</Price>
+              {sale._id === selectedItem && (
+                <Actions>
+                  <IconButton
+                    color="error"
+                    onClick={() => handleDelete(sale._id)}
+                  >
+                    <DeleteForeverIcon />
+                  </IconButton>
+                </Actions>
+              )}
+            </Sale>
+          ))}
+          {Boolean(sales.length) && (
+            <Total>
+              <span>Total:</span>
+              <Price>{total} Bs.</Price>
+            </Total>
+          )}
+          {Boolean(!sales.length) && (
+            <Placeholder variant="project" title="No hay ventas registradas" />
+          )}
+        </View>
       </ListContent>
       <div></div>
     </SwipeableViews>

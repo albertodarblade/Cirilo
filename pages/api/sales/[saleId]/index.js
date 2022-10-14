@@ -9,7 +9,6 @@ export default async function handler(req, res) {
   switch (method) {
     case "DELETE":
       try {
-        console.log("delete", req.query);
         const sale = await SaleHandler.deleteSale(req.query.saleId);
         res.status(200).json({ success: true, data: sale });
       } catch (error) {
